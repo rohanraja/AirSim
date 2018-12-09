@@ -86,7 +86,7 @@ void ASimModeBase::BeginPlay()
     UWorld* World = GetWorld();
     if (World)
     {
-        UWeatherLib::initWeather(World, spawned_actors_);
+        //UWeatherLib::initWeather(World, spawned_actors_);
         //UWeatherLib::showWeatherMenu(World);
     }
 }

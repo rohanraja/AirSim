@@ -81,6 +81,8 @@ void MultirotorPawnSimApi::updateRenderedState(float dt)
         info->rotor_control_filtered = rotor_output.control_signal_filtered;
     }
 
+	rotor_info_[0].light_opacity = vehicle_api_->getLight();
+
     vehicle_api_->getStatusMessages(vehicle_api_messages_);
 
     if (getRemoteControlID() >= 0)

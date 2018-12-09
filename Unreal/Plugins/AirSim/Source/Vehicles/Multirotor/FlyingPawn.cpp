@@ -3,6 +3,7 @@
 #include "AirBlueprintLib.h"
 #include "common/CommonStructs.hpp"
 #include "common/Common.hpp"
+#include "Materials/MaterialInstanceDynamic.h"
 
 AFlyingPawn::AFlyingPawn()
 {
@@ -16,6 +17,13 @@ void AFlyingPawn::BeginPlay()
     for (auto i = 0; i < rotor_count; ++i) {
         rotating_movements_[i] = UAirBlueprintLib::GetActorComponent<URotatingMovementComponent>(this, TEXT("Rotation") + FString::FromInt(i));
     }
+
+	UStaticMeshComponent* light =UAirBlueprintLib::GetActorComponent<UStaticMeshComponent>(this,"Sphere");
+	TArray<UMaterialInterface *> materials = light->GetMaterials();
+	UMaterialInterface* mat = materials[0];
+	lightMaterial = light->CreateDynamicMaterialInstance(0, mat);
+	light->SetMaterial(0, (UMaterialInterface *) lightMaterial);
+	//matInstance->SetVectorParameterValue(TEXT("Color"), FLinearColor::Green);
 }
 
 void AFlyingPawn::initializeForBeginPlay()
@@ -89,5 +97,6 @@ void AFlyingPawn::setRotorSpeed(const std::vector<MultirotorPawnEvents::RotorInf
                 180.0f / M_PIf * RotatorFactor;
         }
     }
+	lightMaterial->SetScalarParameterValue(TEXT("Opacity_1"), rotor_infos[0].light_opacity);
 }
 

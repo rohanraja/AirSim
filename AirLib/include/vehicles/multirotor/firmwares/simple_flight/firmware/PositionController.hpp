@@ -34,7 +34,7 @@ public:
 
         //initialize parent PID
         pid_.reset(new PidController<float>(clock_,
-            PidConfig<float>(params_->position_pid.p[axis], 0, 0)));
+            PidConfig<float>(params_->position_pid.p[axis], 0, 0.0)));
 
         //initialize child controller
         velocity_controller_.reset(new VelocityController(params_, clock_));
@@ -60,7 +60,11 @@ public:
         IAxisController::update();
 
         const Axis4r& goal_position_world = goal_->getGoalValue();
-        pid_->setGoal(goal_position_world[axis_]);
+		//if(axis_ == 3)
+		//	pid_->setGoal(-12);
+		//else
+		pid_->setGoal(goal_position_world[axis_]);
+
         const Axis4r& measured_position_world = Axis4r::xyzToAxis4(
             state_estimator_->getPosition(), true);
         pid_->setMeasured(measured_position_world[axis_]);

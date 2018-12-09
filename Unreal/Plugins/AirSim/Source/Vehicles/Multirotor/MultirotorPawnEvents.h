@@ -16,6 +16,7 @@ public: //types
         int rotor_direction = 0;
         real_T rotor_thrust = 0;
         real_T rotor_control_filtered = 0;
+        float light_opacity = 0;
     };
 
     typedef common_utils::Signal<const std::vector<RotorInfo>&> ActuatorsSignal;

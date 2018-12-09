@@ -13,6 +13,9 @@
 
 namespace msr { namespace airlib {
 
+	
+
+
 void MultirotorApiBase::reset()
 {
     cancelLastTask();
@@ -312,11 +315,37 @@ bool MultirotorApiBase::moveOnPath(const vector<Vector3r>& path, float velocity,
     return waiter.isComplete();
 }
 
+
+float MultirotorApiBase::getLight() 
+{
+	return light_;
+}
+
+bool MultirotorApiBase::setLight(float opacity) 
+{
+	light_ = opacity;
+	return true;
+}
+
 bool MultirotorApiBase::moveToPosition(float x, float y, float z, float velocity, float timeout_sec, DrivetrainType drivetrain,
     const YawMode& yaw_mode, float lookahead, float adaptive_lookahead)
 {
     SingleTaskCall lock(this);
+//	if ((11 - x) < 2)
+//	{
+		//if (posController == NULL)
+		//{
+			//posController = new PositionController(this, drivetrain, yaw_mode);
+		//}
+		//posController->updateTargets(x, y, z);
 
+		//if(posController != NULL)
+		//	return true;
+//	}
+
+	commandPosition(x, y, z, yaw_mode);
+	if (1 || true)
+		return true;
     vector<Vector3r> path{ Vector3r(x, y, z) };
     return moveOnPath(path, velocity, timeout_sec, drivetrain, yaw_mode, lookahead, adaptive_lookahead);
 }

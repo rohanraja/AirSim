@@ -1,12 +1,12 @@
 #pragma once
 
 #include "GameFramework/RotatingMovementComponent.h"
-
 #include <memory>
 #include "PIPCamera.h"
 #include "common/common_utils/Signal.hpp"
 #include "common/common_utils/UniqueValueMap.hpp"
 #include "MultirotorPawnEvents.h"
+#include "Components/SphereComponent.h"
 
 #include "FlyingPawn.generated.h"
 
@@ -47,6 +47,7 @@ private: //variables
     UPROPERTY() APIPCamera* camera_bottom_center_;
 
     UPROPERTY() URotatingMovementComponent* rotating_movements_[rotor_count];
+    UPROPERTY() UMaterialInstanceDynamic* lightMaterial;
 
     MultirotorPawnEvents pawn_events_;
 };
