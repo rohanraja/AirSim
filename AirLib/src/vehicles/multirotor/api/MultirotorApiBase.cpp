@@ -344,7 +344,7 @@ bool MultirotorApiBase::moveToPosition(float x, float y, float z, float velocity
 //	}
 
 	commandPosition(x, y, z, yaw_mode);
-	if (1 || true)
+	if (velocity < 100)
 		return true;
     vector<Vector3r> path{ Vector3r(x, y, z) };
     return moveOnPath(path, velocity, timeout_sec, drivetrain, yaw_mode, lookahead, adaptive_lookahead);
